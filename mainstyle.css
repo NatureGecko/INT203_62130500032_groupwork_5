@@ -1,0 +1,29 @@
+.forgroundwindow{
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+    width: 100%;
+    height: 100%;
+}
+
+.forgroundContentAllign{
+    margin: auto;
+    display: block;
+    width: 100%;
+}
+
+.closebutton{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: wheat;
+    font-size: 40px;
+    transition: 0.5s;
+}
+
+.presentingStyle{
+    background-color: black;
+    max-height: 80.5vh;
+}

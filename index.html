@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Imagination beyond the earth</title>
+    <link href="icon.png" rel="icon">
+    <link href="mainstyle.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- https://google.github.io/material-design-icons/#icon-font-for-the-web -->
+    <!-- Using via Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- https://tailwindcss.com/docs/installation -->
+    <!-- Using Tailwind via CDN -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+
+    <!-- https://v3.vuejs.org/guide/installation.html#release-notes -->
+    <!-- Vue CDN -->
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body class="bg-black">
+    <!--Header-->
+
+
+    <!--A center display picture-->
+    <div id="gallery" class="">
+        <!--app-header-page-present-->
+        <app-header-page-present></app-header-page-present>
+
+        <!--Presentation Mode-->
+        <div v-show="enteredPresentationMode" class="presentingStyle w-screen flex max-w-full">
+            <!--app-image-presentation-->
+            <!--app-image-presentation-->
+            <!--app-image-presentation-->
+            <app-image-presentation></app-image-presentation>
+
+        <!--
+            <div class="flex justify-center">
+                <img v-bind:src="currentPresentationhref" class="margin-auto">
+
+                <div
+                    class="flex justify-center items-stretch content-center absolute bottom-0 w-full bg-black bg-opacity-75">
+                    <button class="w-1/5 p-3 bg-red-500 text-xl text-white m-3 rounded bg-opacity-25"
+                        @click="leavePresentationMode">End presentation</button>
+                    <div class="flex justify-center self-center w-1/2">
+                        <button class="w-1/5 p-3 bg-yellow-100 text-xl text-white m-3 rounded bg-opacity-25"
+                            @click="goToThePreviousPicture" id="goingBack">Previous</button>
+                        <button class="w-1/5 p-3 bg-yellow-100 text-xl text-white m-3 rounded bg-opacity-25"
+                            @click="goToTheNextPicture" id="goingNext">next</button>
+                    </div>
+                    <p class="w-3/5 p-5 text-white text-3xl bg-yellow-100 bg-opacity-25">
+                        {{imagesdata[currentPresentationIndex].imgtitle}}</p>
+                </div>
+            </div>
+        -->
+        </div>
+
+        <div class="relative" v-show="!enteredPresentationMode">
+            <!--app-user-info-sector-->
+            <!--app-user-info-sector-->
+            <!--app-user-info-sector-->
+            <!--
+            <app-user-info-sector @click-followed-by-you="clickfollowedbyyou"></app-user-info-sector>
+            -->
+            <img v-bind:src="userInfo.mainimghref" class="h-auto">
+            <div class="absolute left-0 top-0 flex flex-wrap w-182 bg-yellow-100 text-yellow-900 bg-opacity-75">
+                <img class="h-32 w-32" v-bind:src="userInfo.profilehref">
+                <div class="flex flex-col">
+                    <p class="text-5xl px-5 font-bold">{{userInfo.diaplayname}}</p>
+                    <p class="text-2xl px-1 font-light">{{userInfo.displayquote}}</p>
+                    <div class="flex flex-wrap">
+                        <button v-show="!userInfo.followedbyyou" @click="clickfollowedbyyou()"
+                            class="mx-2 px-2 w-24 bg-green-500 text-white  py-1 px-2 rounded bg-opacity-25">Follow</button>
+                        <button v-show="userInfo.followedbyyou" @click="clickfollowedbyyou()"
+                            class="mx-2  px-2 w-24 bg-red-500 text-white  py-1 px-2 rounded bg-opacity-25">Unfollow</button>
+                        <p class="text-xl px-1 font-light text-black">followed by {{userInfo.displayfollowed}} people
+                        </p>
+                        <p v-show="userInfo.followedbyyou" class="text-xl px-1 font-light font-light">( Including you )
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!--A user gallery-->
+        <div class="bg-gray-900" v-show="!enteredPresentationMode">
+            <div id="" class="mx-40 bg-yellow-100 bg-opacity-75">
+                <!--Header-->
+                <div class="py-5 text-center" id="mainsectorheader">
+                    <p class="text-5xl text-yellow-900 font-bold"> {{gallerytitle}} </p>
+                    <p class="text-2xl text-yellow-900 font-bold">{{sectordisplayname}}'s gallery</p>
+                    <div class="flex justify-center">
+                        <!--app-search-images-->
+                        <!--app-search-images-->
+                        <!--app-search-images-->
+
+                        <app-search-image @leave-the-search-bar="leaveTheSearchBar" @search-by-title="searchByTitle"
+                            @close-and-clear-search="closeandclearsearch"
+                            @enter-presentation-mode-with-current-picture="enterPresentationModeWithCurrentPicture">
+                        </app-search-image>
+
+                        <!--
+                        <div
+                            class="w-2/5 content-center bg-opacity-25 bg-yellow-100 my-2 px-4 flex justify-center items-center text-1xl text-yellow-900 hover:bg-opacity-75 transition duration-500">
+
+                            <input v-model="gatherInput"
+                                class="p-1.5 bg-yellow-100 bg-opacity-25 rounded flex-1 border-2 border-yellow-900"
+                                type="search" v-show="searchBarOn" @keyup.enter="searchByTitle" placeholder="Search...">
+                            <span class="p-3 material-icons transform hover:scale-150" @click="searchByTitle">
+                                search
+                            </span>
+                            <button v-show="!toggleresettext"
+                                class="w-4/5 font-bold bg-yellow-200 py-1 px-2 rounded bg-opacity-50"
+                                @click="searchByTitle">Search by title</button>
+                            <button v-show="toggleresettext"
+                                class="w-2/5 font-bold text-red-700 bg-red-200 py-1 px-2 rounded bg-opacity-50"
+                                @click="closeandclearsearch">Cancle / Undo search</button>
+                        </div>
+                        -->
+                    </div>
+                </div>
+
+                <!--User gallery display sector-->
+                <div class="flex flex-col relative">
+                    <div class="" v-show="showNotFound">
+                        <img class="p-5 bg-gray-900 bg-opacity-25" v-bind:src="notFoundimghref">
+                    </div>
+                    <!--app-list-all-images-->
+                    <!--app-list-all-images-->
+                    <!--app-list-all-images-->
+
+                    <app-list-all-images :imagesdata="filterText"
+                        @hover-and-get-notify-presentation-mode="hoverAndGetNotifyPresentationMode"
+                        @mouse-leave-and-notify-presentation-mode="mouseLeaveAndNotificationGone"
+                        @click-like-this-image="likeThisPicture"></app-list-all-images>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="tail" class="bg-yellow-100" v-show="!enteredPresentationMode">
+            <div class="flex flex-col text-center py-5">
+                <p class="text-yellow-900 text-3xl">Creative Park Gallery</p>
+                <p class="text-yellow-900 text-xl">By 62130500032 Thanaphat Dararat</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="components/app-header-page-present.js"></script>
+    <script src="components/app-list-all-images.js"></script>
+    <script src="components/app-image-presentation.js"></script>
+
+    <!--
+        <script src="components/app-user-info-sector.js"></script>
+    -->
+
+    <script>
+        const mount_gallery = gallery.mount('#gallery');
+    </script>
+</body>
+
+</html>
